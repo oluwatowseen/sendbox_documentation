@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sendbox | The On-demand Delivery Network</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla|Poppins" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom.css" >
+</head>
+<body>
+    <div class="sidenav"> <!-- fixed navigation bar -->
+        <div class="sendbox_logo"><a href="sendbox-docs.html">
+            <img src="images/sendbox_white_logo.svg" alt="sendbox logo"></a>
+        </div>
+        <div class="docs_search">
+            <input type="text" name="search" placeholder="Search docs...">
+        </div>
+        <div class="docs_header">
+            ANDROID SDK INTEGRATION
+        </div>
+        <div class="sidenav_links"> <!-- navigation links -->
+            <a href="#installation" id="installation">Installation</a>
+            <a href="#basic_config" id="basic_config">Basic configuration</a>
+            <a href="#config_proguard" id="config_proguard">Configuring ProGuard</a>
+            <a href="#further_config" id="further_config">Further configuration</a>
+            <a href="#report_unhandled" id="report_unhandled">Reporting unhandled exceptions</a>
+            <a href="#report_handled" id="report_handled">Reporting handled exceptions</a>
+            <a href="#send_data" id="send_data">Sending diagnostic data</a>
+            <a href="#identify_user" id="identify_user">Identifying users</a>
+            <a href="#disable_report" id="disable_report">Disabling error reporting</a>
+            <a href="#loggin_breadcrumbs" id="loggin_breadcrumbs">Logging breadcrumbs</a>
+            <a href="#strictmode_violation" id="strictmode_violation">Reporting StrictMode violations</a>
+            <a href="#next_step" id="next_step">Next steps</a>
+        </div>
+        <hr class="line">
+        <div class="docs_header">
+            LIBRARY REFERENCE
+        </div>
+        <div class="sidenav_links">
+            <a href="#">Configuration options</a>
+            <a href="#">Customizing error reports</a>
+            <a href="#">Android mapping support</a>
+            <a href="#">Reporting handled exceptions</a>
+        </div>
+        <hr class="line">
+        <div class="docs_header">
+            FURTHER READING
+        </div>
+        <div class="sidenav_links">
+            <a href="#">Android demo application</a>
+            <a href="#">View on GitHub</a>
+            <a href="#">Read Javadoc</a>
+            <a href="#">Changelog</a>
+            <a href="#">Support</a>
+        </div>
+    </div>
+
+    <div class="main-content android_guide"> <!-- Content layout -->
+        <div class="topnav"> <!-- top bar navigation -->
+            <div class="topnav_links">
+                <a href="sendbox-docs.html">DOCS</a>
+                <a href="platform-guides.html">PLATFORMS</a>
+                <a href="android.html">ANDROID</a>
+                <a href="#" class="active">SDK</a>
+            </div>
+                <a href="sendbox.ng" class="topnav_button"> SENDBOX.NG</a>
+        </div>
+        <div class="link_content"> <!-- main content -->
+            <h1 class="header_bg">Android SDK integration</h1>
+            <p class="header_note">Add Sendbox to your Android SDK projects to automatically capture and report in Java and Kotlin applications.</p>
+            <p class="header_extranote">New to Sendbox? <a href="https://cloud.sendbox.ng/signup" class="blue_link">Create an account now.</a></p>
+            <div class="language_switch largemargin_bottom">
+                <a href="android-sdk.html" class="languageswitch_left active"> JAVA</a>
+                <a href="android-sdk-kotlin.html" class="languageswitch_right"> KOTLIN</a>
+            </div>
+            <div class="sdk_content">
+                <div class="installation">
+                    <h1 class="headerwith_bar">Installation</h1>
+                    <h5 class="small_header">USING ANDROID STUDIO OR GRADLE</h5>
+                    <p>Add <code>sendbox-android</code> to the <code>dependencies</code> section of your <b>Module Gradle Settings</b>, usually found at <code>&lt;project_dir&gt;/app/build.gradle</code>:</p>
+                    <div class="pre_code">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                    <p class="smallmargin_bottom">Don't forget to run <b>Sync Project with Gradle Files </b>after updating this file.</p>
+                    <h5 class="small_header">USING MAVEN</h5>
+                    <p>Add <code>bugsnag-android</code> as a dependency in your <code>pom.xml</code>:</p>
+                    <div class="pre_code smallmargin_bottom">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <h5 class="small_header">MANUAL AAR INSTALLATION</h5>
+                    <p>Download the <a href="#" class="blue_link">latest release</a> and place it in your app's <code>libs</code> Then add <code>flatDirs</code>as a repository and the archives to your module-level gradle settings:</p>
+                    <div class="pre_code largemargin_bottom">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="basic_config">
+                    <h1 class="headerwith_bar">Basic Configuration</h1>
+                    <h5 class="small_header">SET YOUR API KEY</h5>
+                    <p>Configure your<b>integration API key</b> in the <code>&lt;application&gt;</code> tag of your <a href="#" class="blue_link">App Manifest</a> file.</p>
+                    <div class="pre_code">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                    <p class="smallmargin_bottom">You can find your integration API key immediately after creating a new project from your Bugsnag dashboard, or later on your project's settings page.</p>
+                    <h5 class="small_header">INITIALIZE THE SENDBOX CLIENT</h5>
+                    <p>Import the<code>sendbox</code> package in your <a href="#" class="blue_link">Application</a> subclass:</p>
+                    <div class="pre_code smallmargin_bottom">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <p>In your application's <code>onCreate</code> function, initialize Sendbox</p>
+                    <div class="pre_code largemargin_bottom">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                </div>
+                <div class="config_proguard">
+                    <h1 class="headerwith_bar">Configuring ProGuard</h1>
+                    <p>If you are using <a href="#" class="blue_link">ProGuard</a> to shrink your app, this will cause method and class names to become obfuscated, which makes debugging harder, and causes error grouping problems for sendbox.</p>
+                    <p class="largemargin_bottom">In order to replace the obfuscated data with a human-readable stack trace, Sendbox can use a mapping file, check out our <a href="#" class="blue_link">Android mapping guide</a> for more details.</p>
+                </div>
+                <div class="further_config">
+                    <h1 class="headerwith_bar">Further configuration</h1>
+                    <p class="largemargin_bottom">If you'd like to configure Sendbox further, check out the <a href="#" class="blue_link">configuration options</a> reference.</p>
+                </div>
+                <div class="report_unhandled">
+                    <h1 class="headerwith_bar">Reporting unhandled exceptions</h1>
+                    <p class="largemargin_bottom">After completing <a href="#" class="blue_link">installation</a> and <a href="#" class="blue_link">basic configuration</a>, unhandled exceptions will be automatically reported to your Sendbox dashboard.</p>
+                </div>
+                <div class="report_handled">
+                    <h1 class="headerwith_bar">Reporting handled exceptions</h1>
+                    <p>If you would like to send handled exceptions to Sendbox, you can pass any <code>Throwable</code> object to the <code>Sendbox.notify</code> method:</p>
+                    <div class="pre_code smallmargin_bottom">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <h5 class="small_header">ADDING Diagnotic or adjusting severity</h5>
+                    <p class="largemargin_bottom">It can often be helpful to adjust the severity or attach custom diagnostics to handled exceptions. for more information, see <a href="#" class="blue_link">reporting handled errors</a>.</p>
+                </div>
+                <div class="send_data">
+                    <h1 class="headerwith_bar">Sending diagnostic data</h1>
+                    <h5 class="small_header">Automatically captured diagnostics</h5>
+                    <p>Sendbox will automatically capture and attach the following diagnostic data to every exception report:</p>
+                    <ul class="smallmargin_bottom">
+                        <li>A full <a href="#" class="blue_link">stacktrace</a></li>
+                        <li>Application information (package name, app name, version)</li>
+                        <li>Application state (time in foreground, active screen, memory usuage)</li>
+                        <li>Device information (manufacturer, brand, model, total memory)</li>
+                        <li>Screen information (density, dpi, resolution, orientation)</li>
+                        <li>System information (android version, locale, rooted state, free memory, free disk space)</li>
+                        <li>Battery status (battery level, charging state)</li>
+                        <li>Network status (network type, network state)</li>
+                    </ul>
+                    <h5 class="small_header"> Attaching Custom Diagnostics</h5>
+                    <p>It can often be helpful to attach application-specific diagnostic data to exception reports. This can be accomplished by setting a callback which will be invoked before any reports are sent to Sendbox:</p>
+                    <div class="pre_code">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <p class="largemargin_bottom">For more information, see <a href="#" class="blue_link"> customizing error reports</a>.</p>
+                </div>
+                <div class="identify_user">
+                    <h1 class="headerwith_bar">Identifying users</h1>
+                    <p>In order to correlate errors with customer reports, or to see a list of users who experienced each error, it is helpful to capture and display user information.</p>
+                    <p>This can be accomplished as follows:</p>
+                    <div class="pre_code">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                    <p class="largemargin_bottom">For more information, see <a href="#" class="blue_link"> configuration options</a>.</p>
+                </div>
+                <div class="disable_report">
+                    <h1 class="headerwith_bar">Disabling error reporting</h1>
+                    <p>If you wish to disable error reporting, you can return false within <code>Sendbox.beforeNotify</code>. This would allow for users to opt out of sending error reports, for example:</p>
+                    <div class="pre_code largemargin_bottom">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                </div>
+                <div class="loggin_breadcrumbs">
+                    <h1 class="headerwith_bar">Logging breadcrumbs</h1>
+                    <p class="smallmargin_bottom">In order to understand what happened in your application before each crash, it can be helpful to leave short log statements that we call breadcrumbs are attached to a crash to help diagnose what events lead to the error.</p>
+                    <h5 class="small_header">Automatically Captured Breadcrumbs</h5>
+                    <p>By default, Sendbox captures common events including:</p>
+                    <ul class="smallmargin_bottom">
+                        <li>Activity Lifecycle callbacks</li>
+                        <li>Network connectivity changes</li>
+                        <li>Bluetooth connectivity</li>
+                        <li>Battery state change</li>
+                        <li>Device rotation</li>
+                        <li>Media Scanner events</li>
+                        <li>Telephony events</li>
+                        <li>Other device metrics and more</li>
+                    </ul>
+                    <h5 class="small_header"> Attaching Custom Breadcrumbs</h5>
+                    <p>Leaving breadcrumbs can be accomplished as follows:</p>
+                    <div class="pre_code">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <p>When logging breadcrumbs, we'll keep track of the timestamp, and show both the message and timestamp on your dashboard.</p>
+                    <p>Additional data can be attached to breadcrumbs by using the longer form of <code>leaveBreadcrumb</code>:</p>
+                    <div class="pre_code">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                    <p class="smallmargin_bottom">Individual breadcrumb size is limited to 4kb after serialization. Any larger breadcrumbs will be dropped from the payload while logging a warning.</p>
+                    <h5 class="small_header"> Fragment lifecyles</h5>
+                    <p>If you wish to log Breadcrumbs for the Fragment Lifecycle, we suggest that you use <a href="#" class="blue_link">FragmentLifecyleCallbacks</a> for all the activities which you wish to track.</p>
+                    <div class="pre_code largemargin_bottom">
+                        <pre><code>&lt;dependecy&gt;
+                        &lt;groupId&gt;com.bugsnag&lt;/groupId&gt;
+                        &lt;artifactId&gt;bugsnag-android&lt;/artifactId&gt;
+                        &lt;/dependecy&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="strictmode_violation">
+                    <h1 class="headerwith_bar">Reporting StrictMode violations</h1>
+                    <p>If you have enabled <a href="#" class="blue_link">StrictMode</a> in your development builds with the <code>penaltyDeath</code> option, then Sendbox will automatically detect StrictMode exceptions. Any reports for these errors will contain a human readable description of policy violation (e.g ActivityLeak) in their metadata.</p>
+                    <p>If you have not already setup StrictMode, you can do so by entering the following code in your Application class. it is strongly recommended that you only enable StrictMode for non-release builds.</p>
+                    <div class="pre_code largemargin_bottom">
+                        <pre><code>compile 'com.bugsnag:bugsnag-android:4.1.5'</code></pre>
+                    </div>
+                </div>
+                <div class="next_step">
+                    <h1 class="headerwith_bar">Next steps</h1>
+                    <ul class="largemargin_bottom">
+                        <li>View <code>Sendbox-android</code>, the library powering Sendbox for Android, on GitHub</li>
+                        <li>Get <a href="#" class="blue_link">support</a> for your questions and feature requests</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  
+  
+  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/myjs.js"></script>
+    <script>
+      
+    </script>
+</body>
+</html>
