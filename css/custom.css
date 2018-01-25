@@ -155,6 +155,9 @@ h1 {
     margin: 0 .75rem;
     color: #ddddde;
 }
+.topnav_links a:last-child:after {
+    content: "";
+}
 .main-content .topnav .topnav_button {
     font-size: 11px;
     border: 1px solid #ed2f59;
